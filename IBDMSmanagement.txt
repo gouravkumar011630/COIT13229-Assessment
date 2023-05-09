@@ -1,0 +1,234 @@
+   
+ public static void main(String[] args) 
+    {
+        String rescue_truck_operation_choice="1";
+        Scanner sc_choice= new Scanner(System.in);
+        while(rescue_truck_operation_choice.equalsIgnoreCase("1") || rescue_truck_operation_choice.equalsIgnoreCase("2") || rescue_truck_operation_choice.equalsIgnoreCase("3") )
+        {
+        
+        System.out.print(" 1:Register rescue_truck \n 2:Read messages from server \n 3: Send fire alert \n Enter Your rescue_truck_operation_choice : ");  
+        rescue_truck_operation_choice= sc_choice.nextLine();
+        if(!rescue_truck_operation_choice.equalsIgnoreCase("1") && !rescue_truck_operation_choice.equalsIgnoreCase("2") && !rescue_truck_operation_choice.equalsIgnoreCase("3"))
+        {
+            System.out.println("Enter a valid option.\n");
+        }
+        
+        
+        if(rescue_truck_operation_choice.equalsIgnoreCase("1"))
+        {
+            
+            int flagfor_exit=0;
+            int countOfLines=0;
+            
+            
+            while(flagfor_exit==0)
+            {
+            System.out.print("Enter rescue_truck id : ");  
+            String rescue_truck_id= sc_choice.nextLine();  
+            System.out.print("Enter rescue_truck name : ");  
+            String rescue_truck_name= sc_choice.nextLine();   //reads string   
+            System.out.print("Enter rescue_truck initial position \nX :  ");  
+            String x1= sc_choice.nextLine(); 
+            System.out.print("Y :  ");  
+            String y1= sc_choice.nextLine(); 
+          File file = new File(
+            "C:\\Users\\Abhijith\\Documents\\NetBeansProjects\\rescue_truckClientProject\\rescue_truck.txt");
+ 
+        BufferedReader buffer_read;
+                try {
+                    buffer_read = new BufferedReader(new FileReader(file));
+               
+        String string_read;
+        
+                try {
+                    while ((string_read = buffer_read.readLine()) != null)
+                    {
+                        countOfLines=1;
+                        String rescue_truckidfromfile=string_read.split("##")[0];
+                        String rescue_trucknamefromfile=string_read.split("##")[1];
+                        if(rescue_truckidfromfile.equalsIgnoreCase(rescue_truck_id))
+                        {
+                            System.out.println("rescue_truck id already exists");
+                            flagfor_exit=0;
+                        }
+                        else if(rescue_trucknamefromfile.equalsIgnoreCase(rescue_truck_name))
+                        {
+                            System.out.println("rescue_truck name already exists");
+                            flagfor_exit=0;
+                        }
+                        else
+                        {
+                            flagfor_exit=1;
+                        }
+                        
+                    }
+                        if(flagfor_exit==1)
+                        {
+                            
+                            String val=rescue_truck_id+"##"+rescue_truck_name+"##"+x1+"##"+y1+"\n";
+                            
+                            try {
+                                
+                                Files.write(Paths.get("rescue_truck.txt"), val.getBytes(), StandardOpenOption.APPEND);
+                                
+                                System.out.println("rescue_truck Registration successfull..");
+                                
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                       } catch (IOException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+        if(countOfLines==0)
+        {
+             
+            String val=rescue_truck_id+"##"+rescue_truck_name+"##"+x1+"##"+y1+"\n";
+                        try {
+                            Files.write(Paths.get("rescue_truck.txt"), val.getBytes(), StandardOpenOption.APPEND);
+                        } catch (IOException ex) {
+                            Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+            flagfor_exit=1;
+            System.out.println("Registration successfull");
+             
+        }
+         } catch (FileNotFoundException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+  
+          }
+        
+        }
+            
+            
+        if(rescue_truck_operation_choice.equalsIgnoreCase("2"))
+        {
+             
+          File file = new File(
+            "C:\\Users\\Abhijith\\Documents\\NetBeansProjects\\rescue_truckProject\\rescue_truckmessages.txt");
+ 
+        BufferedReader b_reader;
+            try {
+                b_reader = new BufferedReader(new FileReader(file));
+
+        String st;
+              try {
+                  while ((st = b_reader.readLine()) != null)
+                  {
+                      String instruct=st.split("##")[0];
+                      String rescue_trucknm=st.split("##")[1];
+                      {
+                          System.out.println("To :"+rescue_trucknm+" Message: "+instruct);
+                      }
+                      
+                  }     } catch (IOException ex) {
+                  Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+              }
+                    } catch (FileNotFoundException ex) {
+                Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        //fire 
+        
+        if(rescue_truck_operation_choice.equalsIgnoreCase("3"))
+        {
+            int flagfor_exit=0;
+            int flagfor_exit_rescue_truck=0;
+            while(flagfor_exit==0)
+            {
+            System.out.print("Enter rescue_truck id : ");  
+            String reportingrescue_truck_id= sc_choice.nextLine();  
+            System.out.print("X coordiante : ");  
+            String location_rescue_truck_x= sc_choice.nextLine();  
+            System.out.print("Y coordiante : ");  
+            String location_rescue_truck_y= sc_choice.nextLine(); 
+            System.out.print("Fire Severity : ");  
+            String fire_severity= sc_choice.nextLine(); 
+            
+                File file = new File(
+            "C:\\Users\\Abhijith\\Documents\\NetBeansProjects\\rescue_truckClientProject\\rescue_truck.txt");
+ 
+        BufferedReader br_for_read=null;
+                try {
+                    br_for_read = new BufferedReader(new FileReader(file));
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+ 
+        String st__for_readline;
+                try {
+                    while ((st__for_readline = br_for_read.readLine()) != null)
+                    {
+                        // Print the string
+                        
+                        String rescue_truckidfromfile=st__for_readline.split("##")[0];
+                        if(rescue_truckidfromfile.equalsIgnoreCase(reportingrescue_truck_id))
+                        {
+                            flagfor_exit_rescue_truck=1;
+                        }
+                    }    } catch (IOException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+           
+        if(flagfor_exit_rescue_truck==0)
+        {
+              System.out.println("rescue_truck with this rescue_truck id not found");
+              flagfor_exit=0;
+        }
+        
+        else{
+            flagfor_exit=1;
+        
+         
+            BufferedReader csvReaderrescue_truck=null;
+                try {
+                    csvReaderrescue_truck = new BufferedReader(new FileReader("C:\\Users\\Abhijith\\Documents\\NetBeansProjects\\rescue_truckClientProject\\firetest.csv"));
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String row;
+                int count=1;
+                try {
+                    while ((row = csvReaderrescue_truck.readLine()) != null) {
+                        count++;
+                        
+                    }               } catch (IOException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    csvReaderrescue_truck.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+      CSVWriter writer_csv_rescue_truck=null;
+                try {
+                    writer_csv_rescue_truck = new CSVWriter(new FileWriter("C:\\Users\\Abhijith\\Documents\\NetBeansProjects\\rescue_truckClientProject\\firetest.csv", true));
+                } catch (IOException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+      String [] record = (count+","+reportingrescue_truck_id+","+location_rescue_truck_x+","+location_rescue_truck_y+","+fire_severity).split(",");
+  
+      writer_csv_rescue_truck.writeNext(record);
+
+                try {
+                    writer_csv_rescue_truck.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(rescue_truckClientProject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            System.out.println("fire alert send successfully");
+
+        }
+            }//while flagfor_exit
+        
+        }
+            
+        
+        }
+        
+    }
