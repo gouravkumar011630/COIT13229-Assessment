@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2023 at 03:49 PM
+-- Generation Time: May 11, 2023 at 08:22 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -35,6 +35,13 @@ CREATE TABLE `drone` (
   `ypos` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `drone`
+--
+
+INSERT INTO `drone` (`id`, `name`, `xpos`, `ypos`) VALUES
+(23, 'test', 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +57,13 @@ CREATE TABLE `fire` (
   `ypos` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `fire`
+--
+
+INSERT INTO `fire` (`id`, `isActive`, `intensity`, `burningAreaRadius`, `xpos`, `ypos`) VALUES
+(1, 0, 5, '10', 200, 200);
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +75,13 @@ CREATE TABLE `firetrucks` (
   `name` varchar(45) NOT NULL,
   `designatedFireId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `firetrucks`
+--
+
+INSERT INTO `firetrucks` (`id`, `name`, `designatedFireId`) VALUES
+(1, 'truck1', 1);
 
 --
 -- Indexes for dumped tables
