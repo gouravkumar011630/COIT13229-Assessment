@@ -17,6 +17,7 @@
         if(rescue_truck_operation_choice.equalsIgnoreCase("1"))
         {
             
+            
             int flagfor_exit=0;
             int countOfLines=0;
             
